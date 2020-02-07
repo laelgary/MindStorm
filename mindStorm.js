@@ -4,42 +4,34 @@ Vertion:Initiale 31/01/2020
 Prénom: Laël, Rodrigo, Maxence, Nelson
 
 */
-var1 = falsepour
-toujours(function () {
-    moteurs.largeBC.réservoir(100, 100)
-    var1 = 5 > capteurs.ultrasonic4.distance()
-    if (var1) { 
-        moteurs.largeBC.réservoir(50, 50) 
-    }
-    else { 
-        moteurs.largeBC.courir(50) 
-    } 
-    var1 = 3 > capteurs.ultrasonic4.distance()
-    if (var1) {
-         moteurs.largeBC.réservoir(30, 30) 
+brique .buttonUp. onEvent (ButtonEvent.Pressed, function () {
+    moteurs .largeBC. réservoir (- 10 , 10 )
+})
+pour toujours (function (){
+    if (! (capteurs .touch1. isPressed ()) && capteurs .touch2. isPressed ()){
+        brique . showImage (image.expressionsSick)
+        moteurs .largeBC. réservoir ( 10 , 10 , 2, MoveUnit.Secondes)
+        moteurs .largeBC. réservoir ( 10 , -10 , 2 , MoveUnit.Seconds)
+
+    }   else if (! (capteurs .touch2. isPressed ()) && capteurs .touch1. isPressed ()){
+        brique . showImage (images.expressionsSick)
+        moteurs .largeBC. réservoir ( 10, 10 , 2 , MoveUnit.Secondes)
+        moteurs .largeBC. tank (- 10 , 10 , 2 , MoveUnit.Secondes)
+    }   else if (capteurs .touch1. isPressed () && capteurs .touch2. isPressed ()){
+        moteurs .largeBC. réservoir (-10 , -10 )
+        if (capteurs .ultrasonic4. distance () <= 6){
+            moteurs .largeBC. réservoir ( 10, 10 , 2, MoveUnit.Secondes)
+            moteurs .largeBC. tank ( -10 , 10 , 2 , MoveUnit.Secondes)
+        } else if (capteurs .ultrasonic3. distance () <= 6){
+            moteurs .largeBC. réservoir ( 10 , 10 ,2 , MoveUnit.Secondes)
+            moteurs .largeBC. réservoir (10 , -10 , 2, MoveUnit.Secondes)
+        }else if ( capteurs .ultrasonic3. distance () <=6 && capteurs .ultrasonic4. distance () <=6){
+            moteurs .largeBC. réservoir (10,10)
         }
-    else { 
-        moteurs.largeBC.courir(50) 
-    } 
-    var1 = 1 > capteurs.ultrasonic4.distance()
-    if (var1) { 
-        moteurs.stopAll() 
+
+    } else if (!( capteurs .touch1. isPressed()) &&! (capteurs .touch2. isPressed())) {
+        brique . showImage (image.espressionBigSmile)
+        moteurs .largeBC. réservoir ( 10 , 10 )
     }
-    else { 
-        moteurs.largeBC.courir(50) 
-    }
-    
-    if (var1) {
-    motors.largeBC.tank(30, 30)
-    } 
-    else {
-    motors.largeBC.run(50)
-    }
-    var1 = 1 > sensors.ultrasonic4.distance()
-    if (var1) {
-    motors.stopAll()
-    } 
-    else {
-    motors.largeBC.run(50)
-    }
+
 })
