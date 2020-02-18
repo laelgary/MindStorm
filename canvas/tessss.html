@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Canvas tutorial</title>
+    <script type="text/javascript">
+        var g = document.getElementById("canvas").getContext("2d");
+        setInterval(update, 1000 / 100);
+
+        window.addEventListener("keydown", function(e) {
+            keys[e.keyCode] = true;
+        });
+        window.addEventListener("keyup", function(e) {
+            delete keys[e.keyCode];
+        });
+
+        var keys = [];
+
+        var player = {
+            x: 0,
+            y: 0,
+            isFalling: true,
+        };
+
+        var up = true;
+        var left = true;
+        var right = true;
+
+        var w = 10;
+        var h = 10;
+
+        var block_size = 20;
+
+        var m = {};
+
+        for (var x = 0; x < w; x++) {
+            m[x] = {};
+            for (var y = 0; y < w; y++) {
+                m[x][y] = "sky";
+            }
+        }
+
+        generateWorld();
+
+        function isColl(x1, y1, w1, h1, x2, y2, w2, h2) {
+            return (x1 <= x2 && x1 + w1 >= x2 && y1 <= y2 && y1 + h1 >= y2 || x2 <= x1 && x2 + w2 >= x1 && y2 <= y1 && y2 + h2 >= y1);
+        }
+
+        function update() {
+            g.fillStyle = "rgb(255,255,255)";
+            g.fillRect(0, 0, 200, 200);
+
+            var dx = player.x / block_size;
+            var dy = player.y / block_size;
+
+            for (var x = 0; x < w; x++) {
+                for (var y = 0; y < h; y++) {
+                    if (m[x][y] == "grass") {
+                        g.fillStyle = "rgb(0,200,0)";
+                        g.fillRect(x * 20, y * 20, 20, 20);
+                    } else if (m[x][y] == "sky") {
+                        g.fillStyle = "rgb(100,100,255)";
+                        g.fillRect(x * 20, y * 20, 20, 20);
+                    } else if (m[x][y] == "dirt") {
+                        g.fillStyle = "rgb(100,40,0)";
+                        g.fillRect(x * 20, y * 20, 20, 20);
+                    } else if (m[x][y] == "grass") {
+                        g.fillStyle = "rgb(0,0,255)";
+                        g.fillRect(x * 20, y * 20, 20, 20);
+                    } else {
+                        g.fillStyle = "rgb(200,50,200)";
+                        g.fillRect(x * 20, y * 20, 20, 20);
+                        g.fillStyle = "rgb(0,0,0)";
+                        g.fillText("404", (x * 20), (y * 20) + 15);
+                    }
+                }
+            }
+
+            g.fillStyle = "rgb(255,50,0)";
+            g.fillRect(player.x, player.y, 20, 20);
+
+            if (keys[38] && player.y > 0 && up) {
+                player.y--;
+                player.isFalling = false;
+            } else {
+                player.isFalling = true;
+            }
+            if (keys[39] && player.x < 180 && right) {
+                player.x++;
+            }
+            if (keys[37] && player.x > 0 && left) {
+                player.x--;
+            }
+            if (player.isFalling && player.y < 180) {
+                player.y++;
+            }
+        }
+    </script>
+    <style type="text/css">
+        canvas {
+            border: 8px solid blue;
+        }
+    </style>
+</head>
+
+<body onload="draw();">
+    <canvas id="tutorial" width="150" height="200"></canvas>
+</body>
+
+</html>
