@@ -80,21 +80,6 @@
 
             }
 
-            function collisionDetection() {
-                for (var c = 0; c < brickColumnCount; c++) {
-                    for (var r = 0; r < brickRowCount; r++) {
-                        var b = bricks[c][r];
-                        if (b.status == 1) {
-                            if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) {
-                                dy = -dy;
-                                b.status = 0;
-                                score++;
-                            }
-                        }
-                    }
-                }
-            }
-
 
             function drawScore() {
                 ctx.font = "16px Arial";
@@ -198,7 +183,7 @@
                     console.log("colision");
                     x = Math.floor(Math.random() * 500);
                     y = Math.floor(Math.random() * 500);
-
+                    score++;
                 }
 
 
