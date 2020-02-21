@@ -106,16 +106,24 @@
                 if (object.posx + 50 > 540 && object.x > 0) {
 
                     object.x = 0;
+                    score = 0;
+                    alert("Game Over");
 
                 }
                 if (object.posy + 50 > 550 && object.y > 0) {
                     object.y = 0;
+                    score = 0;
+                    alert("Game Over");
                 }
                 if (object.posy + 50 < 0 && object.y < 0) {
                     object.y = 0;
+                    score = 0;
+                    alert("Game Over");
                 }
                 if (object.posx + 50 < 0 && object.x < 0) {
                     object.x = 0;
+                    score = 0;
+                    alert("Game Over");
                 }
 
 
